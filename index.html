@@ -1,0 +1,55 @@
+<h1>Encode Private Key:</h1>
+<table border="1">
+	<tr><td>Private Key: </td><td><input type="text" id="pkey"></td></tr>
+	<tr><td>Password: </td><td><input type="password" id="pass1"></td></tr>
+	<tr><td></td><td><input type="button" id="encode" value="Encode"></td></tr>
+	<tr><td colspan="2" id="out1"></td></tr>
+</table>
+<br>
+<br>
+<h1>Generate Wallet:</h1>
+<table border="1">
+	<tr><td>Password: </td><td><input type="password" id="pass3">(leave blank if not encrypted)</td></tr>
+	<tr><td></td><td><input type="button" id="generate" value="Generate"></td></tr>
+	<tr><td colspan="2" id="out3"></td></tr>
+</table>
+<br>
+<br>
+<h1>Decode BIP38 Key:</h1>
+<table border="1">
+	<tr><td>BIP38 Key: </td><td><input type="text" id="bkey"></td></tr>
+	<tr><td>Password: </td><td><input type="password" id="pass2"></td></tr>
+	<tr><td></td><td><input type="button" id="decode" value="Decode"></td></tr>
+	<tr><td colspan="2" id="out2"></td></tr>
+</table>
+
+
+<script src="WalletGen.js"></script>
+<script>
+document.getElementById('encode').addEventListener('click',function() {
+	var pass=document.getElementById('pass1').value;
+	if (pass=="") pass=undefined;
+	document.getElementById('out1').innerHTML=DigiWalletGen(pass,document.getElementById('pkey').value)[1];
+});
+
+document.getElementById('generate').addEventListener('click',function() {
+	var pass=document.getElementById('pass3').value;
+	if (pass=="") pass=undefined;
+	document.getElementById('out3').innerHTML=DigiWalletGen(pass)[1];
+});
+
+document.getElementById('decode').addEventListener('click',function() {
+	var pass=document.getElementById('pass2').value;
+	if (pass=="") pass=undefined;
+	document.getElementById('out2').innerHTML=DigiWalletDecode(pass,document.getElementById('bkey').value,function (status) {
+	  console.log(status.percent)
+	})[1];
+});
+//	console.log(DigiWalletGen("test"));
+//	console.log(DigiWalletGen());
+
+
+//console.log(DigiWalletDecode("test","6PYMhr5sa3Jdwmu6QzUerrFhMS5Hmdhj66GSMoWd7eHfwtKRYgjeGtYfBs",function (status) {
+//			  console.log(status.percent) // will print the precent every time current increases by 1000
+//			}));
+</script>
